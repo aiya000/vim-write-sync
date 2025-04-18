@@ -1,27 +1,57 @@
 # :sparkles: write-sync.vim :sparkles:
 
-When you did `:w`, write an another file with the same file content.
+When you did `:w` (`:write`), write an another file with the same file content.
 
 ![](./readme/logo.png)
 
 For Vim/Neovim.
 
+## Installation
+
+- Example for [dein.vim](https://github.com/Shougo/dein.vim).
+    - See [dein#add()](https://github.com/Shougo/dein.vim/blob/master/doc/dein.txt#L114)
+
+~/.vimrc
+```vim
+call dein#begin(s:dein_base)
+" ...
+call dein#add('aiya000/vim-write-sync')
+" ...
+call dein#end()
+```
+
+Then, do `call dein#install()`.
+
 ## How to work
 
-**You want to write `/mnt/c/Users/you/Desktop/AutoHotkey.ahk` when `~/.dotfiles/AutoHotkey.ahk`
+If you want to write `~/.dotfiles/AutoHotkey.ahk` when `/mnt/c/Users/you/Desktop/AutoHotkey.ahk`:
 
-1. Confirmation
+1. Configure your .vimrc
+
+```vim
+" Also paths like '~/' are available.
+" These are expanded by `expand()`
+let g:write_sync_lists = [
+  \ [
+    \ '~/.dotfiles/AutoHotkey.ahk',
+    \ '/mnt/c/Users/you/Desktop/AutoHotkey.ahk',
+  \ ]
+\ ]
+```
+
+2. Confirmation
 
 ```shell-session
 $ ls /mnt/c/Users/you/Desktop/AutoHotkey.ahk
 ls: cannot access '/mnt/c/Users/you/Desktop/AutoHotkey.ahk': No such file or directory
 
 # Or
+
 $ cat /mnt/c/Users/you/Desktop/AutoHotkey.ahk
 (an another content)
 ```
 
-2. Edit original file
+3. Edit original file
 
 ```shell-session
 $ vim ~/.dotfiles/AutoHotkey.ahk
@@ -33,7 +63,7 @@ $ vim ~/.dotfiles/AutoHotkey.ahk
 # ...
 ```
 
-3. Check the another file
+4. Check the another file
 
 ```shell-session
 $ cat /mnt/c/Users/you/Desktop/AutoHotkey.ahk
@@ -42,6 +72,13 @@ $ cat /mnt/c/Users/you/Desktop/AutoHotkey.ahk
 ```
 
 Good.
+
+## Other options
+
+```vim
+" Notify result by `:echo` when file synchronization (simultaneous writes) is finished (default: v:false)
+let g:write_sync_echo_success_on_write = v:true
+```
 
 ## Doesn't work well
 
