@@ -6,21 +6,12 @@ When you did `:w` (`:write`), write an another file with the same file content.
 
 For Vim/Neovim.
 
-## Installation
+## **Table of Contents**
 
-- Example for [dein.vim](https://github.com/Shougo/dein.vim).
-    - See [dein#add()](https://github.com/Shougo/dein.vim/blob/master/doc/dein.txt#L114)
-
-~/.vimrc
-```vim
-call dein#begin(s:dein_base)
-" ...
-call dein#add('aiya000/vim-write-sync')
-" ...
-call dein#end()
-```
-
-Then, do `call dein#install()`.
+- [How to work](#how-to-work)
+- [Other options](#other-options)
+- [Installation](#installation)
+- [Doesn't work well](#doesnt-work-well)
 
 ## How to work
 
@@ -39,7 +30,7 @@ let g:write_sync_lists = [
 \ ]
 ```
 
-2. Confirmation
+2. (Confirm that the file to be synchronized does not yet exist)
 
 ```shell-session
 $ ls /mnt/c/Users/you/Desktop/AutoHotkey.ahk
@@ -51,7 +42,7 @@ $ cat /mnt/c/Users/you/Desktop/AutoHotkey.ahk
 (an another content)
 ```
 
-3. Edit original file
+3. Edit a synchronized source file
 
 ```shell-session
 $ vim ~/.dotfiles/AutoHotkey.ahk
@@ -79,6 +70,22 @@ Good.
 " Notify result by `:echo` when file synchronization (simultaneous writes) is finished (default: v:false)
 let g:write_sync_echo_success_on_write = v:true
 ```
+
+## Installation
+
+- Example for [dein.vim](https://github.com/Shougo/dein.vim).
+    - See [dein#add()](https://github.com/Shougo/dein.vim/blob/master/doc/dein.txt#L114)
+
+~/.vimrc
+```vim
+call dein#begin(s:dein_base)
+" ...
+call dein#add('aiya000/vim-write-sync')
+" ...
+call dein#end()
+```
+
+Then, do `call dein#install()`.
 
 ## Doesn't work well
 
