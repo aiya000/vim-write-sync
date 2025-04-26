@@ -67,8 +67,15 @@ Good.
 ## Other options
 
 ```vim
-" Notify result by `:echo` when file synchronization (simultaneous writes) is finished (default: v:false)
-let g:write_sync_echo_success_on_write = v:true
+" Notify result by `popup_atcursor()` when file synchronization (simultaneous writes) is finished (default: v:false)
+let g:write_sync_notify_result = v:true
+" This is same as above (`v:true`)
+let g:write_sync_notify_result = 'popup'
+
+" Simular to `v:true` but using `:echo` instead of `popup_atcursor()`
+let g:write_sync_notify_result = 'echo'
+" Or we can use ':echomsg'
+let g:write_sync_notify_result = 'echomsg'
 ```
 
 ## Installation

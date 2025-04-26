@@ -9,6 +9,7 @@ let g:loaded_write_sync = v:true
 " @type {Array<Array<string>>}
 let g:write_sync_lists = get(g:, 'write_sync_lists', [])
 
+" @type {boolean | 'popup' | 'echo' | 'echomsg'}
 let g:write_sync_echo_success_on_write = get(g:, 'write_sync_echo_success_on_write', v:false)
 
 " @see `:help autocmd_add`

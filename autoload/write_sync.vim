@@ -7,7 +7,26 @@ function! s:echomsg_error(message) abort
   echohl None
 endfunction
 
-function! s:get_echo_method(maybe_method) abort
+function! s:echo(message) abort
+  echo a:message
+endfunction
+
+function! s:echomsg(message) abort
+  echomsg a:message
+endfunction
+
+" Shows a popup window by `popup_atcursor()` with good options
+function! s:popup_atcursor(messages) abort
+  return popup_atcursor(a:messages, #{
+    \ pos: 'topleft',
+    \ line: 'cursor-2',
+    \ border: [1, 1, 1, 1],
+    \ borderchars: ['-', '|', '-', '|', '+', '+', '+', '+'],
+    \ moved: [0, 0, 0],
+  \ })
+endfunction
+
+function! s:get_notify_method(maybe_method) abort
   return
     \ a:maybe_method ==# v:null || a:maybe_method ==# 'echo'
     \ ? 'echo'
@@ -16,10 +35,9 @@ function! s:get_echo_method(maybe_method) abort
       \ : execute($'throw "Unknown echo method: {a:maybe_method}"')
 endfunction
 
-function! s:echo_if_enabled(message, ...) abort
-  if g:write_sync_echo_success_on_write
-    const echo = s:get_echo_method(get(a:000, 0, v:null))
-    execute echo $'"{a:message}"'
+function! s:notify_if_enabled(message, ...) abort
+    const notify = s:get_notify_method(g:write_sync_notify_result)
+    execute notify $'"{a:message}"'
   endif
 endfunction
 
@@ -34,7 +52,7 @@ function! write_sync#write_all(source, target_files) abort
     const content = readfile(a:source)
     for file in a:target_files
       if !filewritable(file)
-        call s:echo_if_enabled($'Not a writable file (skipped): {file}', 'echomsg')
+        call s:notify_if_enabled($'Not a writable file (skipped): {file}', 'echomsg')
         continue
       endif
       call writefile(content, file)
@@ -45,7 +63,7 @@ function! write_sync#write_all(source, target_files) abort
     call s:echomsg_error($'Error writing to files: {a:target_files}')
     call s:echomsg_error(v:exception)
   finally
-    call s:echo_if_enabled($'Wrote to {written_files->join(', ')}')
+    call s:notify_if_enabled($'Wrote to {written_files->join(', ')}')
     let s:suppress_rewrite = v:false
   endtry
 endfunction

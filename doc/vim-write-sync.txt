@@ -67,20 +67,35 @@ VARIABLES						*write-sync-variables*
 	the same content are written to `~/tmp/x` and `~/tmp/y`.
 
 
-*g:write_sync_echo_success_on_write*
-	Type: `boolean`
+*g:write_sync_notify_result*
+	Type: `boolean | 'popup' | 'echo' | 'echomsg'`
 	Default: `v:false`
 
-	Notify `:write` result by `:echo`
+	Notify `:write` result by `popup_atcursor()`, :`echo`, or `:echomsg`
 	when file synchronization (simultaneous writes) is finished
-	if this is `v:true`.
+	and failed to write a target file.
+>
+	" Notify result by `popup_atcursor()`
+	let g:write_sync_notify_result = v:true
+	" This is same as above (`v:true`)
+	let g:write_sync_notify_result = 'popup'
+
+	" Simular to `v:true` but using `:echo` instead of `popup_atcursor()`
+	let g:write_sync_notify_result = 'echo'
+	" Or we can use ':echomsg'
+	let g:write_sync_notify_result = 'echomsg'
+<
 
 
 ==============================================================================
 CHANGELOG					*write-sync-changelog*
 
-See https://github.com/aiya000/vim-write-sync/commits/main
+Also see https://github.com/aiya000/vim-write-sync/commits/main
 
+Breaking changes:
+- 2025-04-26:
+	Rename g:write_sync_echo_success_on_write to g:write_sync_notify_result
+	and improve results notifications
 
 ==============================================================================
 vim:tw=78:ts=8:ft=help:norl:noet:fen:fdm=marker
