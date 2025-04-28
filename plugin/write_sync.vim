@@ -53,6 +53,10 @@ function! s:autocmd_add(autocmds) abort
   endfor
 endfunction
 
+augroup VimWriteSync
+  autocmd!
+augroup END
+
 let _ = g:write_sync_lists
   \ ->s:flatmap({ _i, files ->
     \ s:make_autocmds_to_write_files(files)
