@@ -33,8 +33,8 @@ function! write_sync#write_all(source, target_files) abort
   try
     const content = readfile(a:source)
     for file in a:target_files
-      if !filewritable(file)
-        call s:echo_if_enabled($'Not a writable file (skipped): {file}', 'echomsg')
+      if !g:write_sync_create_file_if_not_exists
+        call s:echo_if_enabled($'Skipped this file to write : {file}', 'echomsg')
         continue
       endif
       call writefile(content, file)

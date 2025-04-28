@@ -10,6 +10,7 @@ let g:loaded_write_sync = v:true
 let g:write_sync_lists = get(g:, 'write_sync_lists', [])
 
 let g:write_sync_echo_success_on_write = get(g:, 'write_sync_echo_success_on_write', v:false)
+let g:write_sync_create_file_if_not_exists = get(g:, 'write_sync_create_file_if_not_exists', v:true)
 
 " @see `:help autocmd_add`
 " @typedef {Parameters<typeof autocmd_add>[0]} AutoCmd

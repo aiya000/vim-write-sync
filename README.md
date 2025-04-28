@@ -71,6 +71,11 @@ Good.
 let g:write_sync_echo_success_on_write = v:true
 ```
 
+```vim
+" Create the file to write if this is `v:true` and the file does not exist (default: v:true)
+let g:write_sync_create_file_if_not_exists = v:true
+```
+
 ## Installation
 
 - Example for [dein.vim](https://github.com/Shougo/dein.vim).
