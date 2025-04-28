@@ -46,8 +46,15 @@ function! s:flatmap(xs, k) abort
   return a:xs->mapnew(a:k)->flatten(1)
 endfunction
 
+" Neovim compatibled `autocmd_add()`
+function! s:autocmd_add(autocmds) abort
+  for autocmd in a:autocmds
+    execute 'autocmd' autocmd.group autocmd.event autocmd.pattern autocmd.cmd
+  endfor
+endfunction
+
 let _ = g:write_sync_lists
   \ ->s:flatmap({ _i, files ->
     \ s:make_autocmds_to_write_files(files)
   \ })
-  \ ->autocmd_add()
+  \ ->s:autocmd_add()
