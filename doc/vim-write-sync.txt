@@ -75,6 +75,12 @@ VARIABLES						*write-sync-variables*
 	when file synchronization (simultaneous writes) is finished
 	if this is `v:true`.
 
+*g:write_sync_create_file_if_not_exists*
+	Type: `boolean`
+	Default: `v:true`
+
+	Create the file to write if this is `v:true` and the file does not exist (default: v:true)
+
 
 ==============================================================================
 CHANGELOG					*write-sync-changelog*
